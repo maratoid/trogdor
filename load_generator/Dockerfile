@@ -44,4 +44,4 @@ ENV DEBIAN_FRONTEND=newt
 ENTRYPOINT ["websocketd","--port=9081","--devconsole"]
 
 # Define default command.
-CMD ["wrk", "-c", "50", "-t", "10", "-d", "30", "http://framework:9080/json"]
+CMD ["wrk", "--latency", "-c", "256", "-t", "8", "-d", "30", "http://framework:9080/json"]
