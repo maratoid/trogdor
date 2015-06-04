@@ -1,4 +1,5 @@
 FROM debian:jessie
+EXPOSE 8080
 
 # Set the reset cache variable
 ENV REFRESHED_AT 2015-05-04
@@ -23,6 +24,10 @@ RUN git clone https://github.com/wg/wrk.git &&\
     make &&\
     mv wrk /usr/local/bin
 
+# Install websocketd
+RUN wget https://github.com/joewalnes/websocketd/releases/download/v0.2.10/websocketd-0.2.10_amd64.deb
+RUN dpkg -i websocketd-0.2.10_amd64.deb
+
 WORKDIR /
 
 # Cleanup
@@ -36,5 +41,7 @@ COPY scripts /scripts
 
 ENV DEBIAN_FRONTEND=newt
 
+ENTRYPOINT ["websocketd","--port=8080","--devconsole"]
+
 # Define default command.
-ENTRYPOINT ["/usr/local/bin/wrk"]
+CMD ["wrk", "-c", "50", "-t", "10", "-d", "30", "http://framework:8080"]
