@@ -1,0 +1,37 @@
+{
+   "kind":"ReplicationController",
+   "apiVersion":"v1beta3",
+   "metadata":{
+      "name":"load-generator",
+      "labels":{
+         "name":"load-generator"
+      }
+   },
+   "spec":{
+      "replicas":1,
+      "selector":{
+         "name":"load-generator"
+      },
+      "template":{
+         "metadata":{
+            "labels":{
+               "name":"load-generator"
+            }
+         },
+         "spec":{
+            "containers":[
+               {
+                  "name":"load-generator",
+                  "image":"quay.io/maratoid/trogdor-load",
+                  "ports":[
+                     {
+                        "containerPort":9081,
+                        "protocol":"TCP"
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   }
+}
