@@ -1,5 +1,5 @@
 FROM debian:jessie
-EXPOSE 8080
+EXPOSE 9081
 
 # Set the reset cache variable
 ENV REFRESHED_AT 2015-05-04
@@ -41,7 +41,7 @@ COPY scripts /scripts
 
 ENV DEBIAN_FRONTEND=newt
 
-ENTRYPOINT ["websocketd","--port=8080","--devconsole"]
+ENTRYPOINT ["websocketd","--port=9081","--devconsole"]
 
 # Define default command.
-CMD ["wrk", "-c", "50", "-t", "10", "-d", "30", "http://framework:8080"]
+CMD ["wrk", "-c", "50", "-t", "10", "-d", "30", "http://framework:9080/json"]

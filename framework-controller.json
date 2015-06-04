@@ -25,7 +25,7 @@
                   "image":"quay.io/maratoid/trogdor-framework",
                   "ports":[
                      {
-                        "containerPort":8080,
+                        "containerPort":9080,
                         "protocol":"TCP"
                      }
                   ]

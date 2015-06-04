@@ -10,11 +10,12 @@
    "spec":{
       "ports": [
         {
-          "port":8080,
-          "targetPort":8080,
+          "port":9081,
+          "targetPort":9081,
           "protocol":"TCP"
         }
       ],
+      "publicIPs": [ "172.16.1.103" ],
       "selector":{
          "name":"load-generator"
       }
