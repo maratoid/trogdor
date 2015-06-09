@@ -2,22 +2,21 @@
    "kind":"Service",
    "apiVersion":"v1beta3",
    "metadata":{
-      "name":"load-generator",
+      "name":"load-generator-slave",
       "labels":{
-         "name":"load-generator"
+         "name":"load-generator-slave"
       }
    },
    "spec":{
       "ports": [
         {
-          "port":9081,
-          "targetPort":9081,
+          "port":8089,
+          "targetPort":8089,
           "protocol":"TCP"
         }
       ],
-      "publicIPs": [ "172.16.1.103" ],
       "selector":{
-         "name":"load-generator"
+         "name":"load-generator-slave"
       }
    }
 }

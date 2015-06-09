@@ -2,30 +2,31 @@
    "kind":"ReplicationController",
    "apiVersion":"v1beta3",
    "metadata":{
-      "name":"load-generator",
+      "name":"load-generator-slave",
       "labels":{
-         "name":"load-generator"
+         "name":"load-generator-slave"
       }
    },
    "spec":{
-      "replicas":1,
+      "replicas":5,
       "selector":{
-         "name":"load-generator"
+         "name":"load-generator-slave"
       },
       "template":{
          "metadata":{
             "labels":{
-               "name":"load-generator"
+               "name":"load-generator-slave"
             }
          },
          "spec":{
             "containers":[
                {
-                  "name":"load-generator",
+                  "name":"load-generator-slave",
                   "image":"quay.io/maratoid/trogdor-load",
+                  "command": ["locust", "-f", "/scripts/locustfile.py", "--slave", "--master-host=load-generator-master", "--host=http://framework:9080"],
                   "ports":[
                      {
-                        "containerPort":9081,
+                        "containerPort":8089,
                         "protocol":"TCP"
                      }
                   ]

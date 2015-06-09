@@ -1,8 +1,8 @@
 FROM debian:jessie
-EXPOSE 9081
+EXPOSE 8089
 
 # Set the reset cache variable
-ENV REFRESHED_AT 2015-05-04
+ENV REFRESHED_AT 2015-06-8
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -10,25 +10,14 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y
 
 # Install useful packages
-RUN apt-get install -y strace procps tree vim git curl wget gnuplot
-
-# Install required software
 RUN apt-get install -y build-essential libssl-dev
 
-# Install benchmarking software
-# Resource: https://github.com/wg/wrk/wiki/Installing-Wrk-on-Linux
-WORKDIR /tmp
+# Install required software
+RUN apt-get install -y python python-dev python-distribute python-pip
 
-RUN git clone https://github.com/wg/wrk.git &&\
-    cd wrk &&\
-    make &&\
-    mv wrk /usr/local/bin
-
-# Install websocketd
-RUN wget https://github.com/joewalnes/websocketd/releases/download/v0.2.10/websocketd-0.2.10_amd64.deb
-RUN dpkg -i websocketd-0.2.10_amd64.deb
-
-WORKDIR /
+# Install locust
+RUN pip install pyzmq --install-option="--zmq=bundled"
+RUN pip install locustio
 
 # Cleanup
 RUN apt-get clean
@@ -41,7 +30,4 @@ COPY scripts /scripts
 
 ENV DEBIAN_FRONTEND=newt
 
-ENTRYPOINT ["websocketd","--port=9081","--devconsole"]
-
-# Define default command.
-CMD ["wrk", "--latency", "-c", "256", "-t", "8", "-d", "30", "http://framework:9080/json"]
+ENTRYPOINT ["locust"]
