@@ -24,7 +24,7 @@ def output_success_log (request_type, name, response_time, response_length, ** k
   client.write_points (json_body)
 
 def output_failure_log (request_type, name, response_time, exception, ** kw):
-  client = InfluxDBClient InfluxDBClient (host, port, user, pw, 'failures')
+  client = InfluxDBClient (host, port, user, pw, 'failures')
   json_body = [{
     "Points": [[request_type, name, response_time, exception]],
     "Name": "loadtest_result",
