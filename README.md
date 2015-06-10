@@ -1,38 +1,26 @@
 # trogdor
 
-## local cluster:
-Fire up a local kraken cluster (you'll need to clone kraken repo)
+## Running:
+Fire up a kraken cluster (you'll need to clone kraken repo)
 
 Create benchmark controllers and services:
 
-    kubectl create --cluster=local -f framework-controller.json
-    kubectl create --cluster=local -f framework-service.json
-    kubectl create --cluster=local -f load-controller-master.json
-    kubectl create --cluster=local -f load-service-master.json
-    kubectl create --cluster=local -f load-controller-slave.json
-    kubectl create --cluster=local -f load-service-slave.json
-    
+    kubectl create --cluster='type of cluster' -f kub
+
+## local cluster
+
+Create local service:
+ 
+    kubectl create --cluster=local -f kub-local
+
 Now you can go the http://172.16.1.103:8089/ and run a test.
 
+## aws cluster
 
-Resize the number of frameworks:
-
-    kub resize --cluster=local --replicas=20 rc framework
-
-Run the http://172.16.1.103:8089/ test again. Compare results.
-
-## aws cluster:
-Fire up an aws kraken cluster (you'll need to clone kraken repo)
-
-Create benchmark controllers and services
-
-    kubectl create --cluster=local -f framework-controller.json
-    kubectl create --cluster=local -f framework-service.json
-    kubectl create --cluster=local -f load-controller-master.json
-    kubectl create --cluster=local -f load-service-master.json
-    kubectl create --cluster=local -f load-controller-slave.json
-    kubectl create --cluster=local -f load-service-slave.json
-
+Create local service:
+ 
+    kubectl create --cluster=aws -f kub-aws
+    
 ### Create an elastic Load Balancer in EC2. 
 
 On the AWS EC2 console:
@@ -54,6 +42,12 @@ After all nodes pass healthcheck, Locust load generator UI will be usable throug
 
 Now you can go the http://<ELB public DNS> and run a test.
 
+## scaling
+
 Resize the number of frameworks while the test is running. Observe:
 
-    kub resize --cluster=aws --replicas=20 rc framework
+    kub resize --cluster='type of cluster' --replicas=20 rc framework
+
+Resize the number of load generator slaves while the test is running. Observe:
+
+    kub scale --cluster='type of cluster' --replicas=25 rc load-generator-slave
