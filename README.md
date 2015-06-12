@@ -21,7 +21,7 @@ Now you can go the http://172.16.1.103:8089/ and run a test.
 
 ## aws cluster
 
-Adjust number of nodes in you aws settings.yaml
+Adjust number of nodes in your aws settings.yaml
 
 Create an elastic Load Balancer in EC2. On the AWS EC2 console:
 
