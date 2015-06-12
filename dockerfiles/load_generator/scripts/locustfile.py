@@ -1,4 +1,7 @@
-from locust import HttpLocust, TaskSet, task, events
+from locust import HttpLocust, TaskSet, task
+
+# Uncomment to enable pushing results and failures into k8s influx database
+"""from locust import events
 from influxdb.influxdb08 import InfluxDBClient
 
 host = 'monitoring-influxdb'
@@ -22,7 +25,7 @@ def output_failure_log (request_type, name, response_time, exception, ** kw):
     "Name": "loadtest_failures",
     "Columns": ["request_type", "name", "response_time", "exception"]
   }]
-  client.write_points (json_body)
+  client.write_points (json_body)"""
 
 class JsonSerialization(TaskSet):
   @task(1)
@@ -32,5 +35,6 @@ class JsonSerialization(TaskSet):
 class WebsiteUser(HttpLocust):
   task_set = JsonSerialization
 
-events.request_success += output_success_log 
-events.request_failure += output_failure_log 
+# Uncomment to enable pushing results and failures into k8s influx database
+"""events.request_success += output_success_log 
+events.request_failure += output_failure_log"""
