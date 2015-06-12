@@ -1,13 +1,17 @@
 # trogdor
 
 ## Running:
-Fire up a kraken cluster (you'll need to clone kraken repo)
+
+## local cluster
+Adjust number of nodes in your local settings.yaml
+
+Fire up local kraken cluster (you'll need to clone kraken repo)
+
+   kraken local up
 
 Create benchmark controllers and services:
 
-    kubectl create --cluster='type of cluster' -f kub
-
-## local cluster
+    kubectl create --cluster=local -f kub
 
 Create local service:
  
@@ -17,9 +21,9 @@ Now you can go the http://172.16.1.103:8089/ and run a test.
 
 ## aws cluster
 
-### Create an elastic Load Balancer in EC2. 
+Adjust number of nodes in you aws settings.yaml
 
-On the AWS EC2 console:
+Create an elastic Load Balancer in EC2. On the AWS EC2 console:
 
 1. Click "Load Balancers" under "Network & Security"
 2. Click "Create Load Balancer"
@@ -39,6 +43,14 @@ Update your aws settings.yaml file. Add
     elb: name_of_your_elb
 
 to aws section of the config
+
+Fire up aws kraken cluster (you'll need to clone kraken repo)
+
+    kraken aws up
+
+Create benchmark controllers and services:
+
+    kubectl create --cluster=aws -f kub
 
 Create aws service:
  
