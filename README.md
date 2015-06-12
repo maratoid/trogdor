@@ -48,12 +48,13 @@ After all nodes pass healthcheck, Locust load generator UI will be usable throug
 
 Now you can go the http://ELB-public-DNS and run a test.
 
-## scaling
+## scaling (on aws)
+Resize the number of load generator slaves while the test is running. Observe:
+
+    kub scale --cluster=aws --replicas=300 rc load-generator-slave
+
+You should see numbr of slaves at http://ELB-public-DNS go up shortly
 
 Resize the number of frameworks while the test is running. Observe:
 
-    kub resize --cluster='type of cluster' --replicas=20 rc framework
-
-Resize the number of load generator slaves while the test is running. Observe:
-
-    kub scale --cluster='type of cluster' --replicas=25 rc load-generator-slave
+    kub resize --cluster=aws --replicas=50 rc framework
