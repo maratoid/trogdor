@@ -35,7 +35,7 @@ Create an elastic Load Balancer in EC2. On the AWS EC2 console:
 8. Click "Assign Security groups", and select YOUR security group. E.g. secgroup-kubernetes-your-nick. Make sure your security group is open on port 8089.
 9. Select "configure security settings" and then "Configure healthcheck". 
 10. Ping protocol is "TCP", Ping port is 30061. 
-11. Select "Add EC2 instances". Add all YOUR nodes - node-01 thorugh node-x.
+11. No instances to add yet. They will be automatically added by Vagrant later.
 12. "Add tags" -> "Review and create"
 
 Update your aws settings.yaml file. Add
