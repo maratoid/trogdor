@@ -40,7 +40,15 @@ Create an elastic Load Balancer in EC2. On the AWS EC2 console:
 
 Update your aws settings.yaml file. Add
 
-    elb: name_of_your_elb
+    elb:                                                       
+       name: name_of_your_elb                                                   
+       balancer_port: 80                                       
+       instance_port: 30061                                      
+       healthy_threshold: 2                                     
+       unhealthy_threshold: 3                                   
+       timeout: 5                                               
+       interval: 30                                             
+       target_port: 30061    
 
 to aws section of the config
 
@@ -58,7 +66,7 @@ Create aws service:
     
 After all nodes pass healthcheck, Locust load generator UI will be usable through the new ELB's public DNS name.
 
-Now you can go the http://ELB-public-DNS and run a test.
+Look up the public DNS of your ELB on AWS console. Now you can go the http://ELB-public-DNS and run a test.
 
 ## scaling (on aws)
 Resize the number of load generator slaves while the test is running. Observe:
