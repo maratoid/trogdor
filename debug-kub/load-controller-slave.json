@@ -22,7 +22,7 @@
             "containers":[
                {
                   "name":"load-generator-slave",
-                  "image":"quay.io/maratoid/trogdor-load-debug:latest",
+                  "image":"quay.io/samsung_ag/trogdor-load-generator:latest",
                   "command": ["locust", "-f", "/scripts/locustfile.py", "--loglevel=DEBUG", "--slave", "--master-host=load-generator-master", "--host=http://framework:9080"]
                }
             ]
