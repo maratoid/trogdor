@@ -16,7 +16,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Requests",
+          "title": "Requests per Second per Slave",
           "error": false,
           "span": 12,
           "editable": true,
@@ -27,7 +27,7 @@
           "x-axis": false,
           "y-axis": true,
           "y_formats": [
-            "ms",
+            "short",
             "none"
           ],
           "grid": {
@@ -42,15 +42,15 @@
           },
           "lines": true,
           "fill": 0,
-          "linewidth": 2,
+          "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "percentage": false,
           "legend": {
-            "show": true,
-            "values": true,
+            "show": false,
+            "values": false,
             "min": true,
             "max": true,
             "current": false,
@@ -66,10 +66,10 @@
           "targets": [
             {
               "target": "",
-              "function": "mean",
-              "column": "response_time",
-              "series": "loadtest_results",
-              "query": "select mean(response_time) from \"loadtest_results\" where $timeFilter group by time($interval) fill(0) order asc",
+              "function": "median",
+              "column": "requests_per_second",
+              "series": "trogdor_rps",
+              "query": "select median(requests_per_second) from \"trogdor_rps\" where $timeFilter group by time($interval) fill(0) order asc",
               "fill": "0"
             }
           ],
@@ -85,7 +85,68 @@
       "height": "250px",
       "editable": false,
       "collapse": false,
-      "panels": [],
+      "panels": [
+        {
+          "title": "Request Time",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "id": 2,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": false,
+          "y-axis": true,
+          "y_formats": [
+            "ms",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": false,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "median",
+              "column": "response_time",
+              "series": "trogdor_rts",
+              "query": "select median(response_time) from \"trogdor_rts\" where $timeFilter group by time($interval) order asc"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        }
+      ],
       "showTitle": false
     }
   ],

@@ -41,7 +41,8 @@ Create an elastic Load Balancer in EC2. On the AWS EC2 console:
 Update your aws settings.yaml file. Add
 
     elb:                                                       
-       name: name_of_your_elb                                                   
+       name: name_of_your_elb
+       dns_name: your_nickname.kubeme.io                                                   
        balancer_port: 80                                       
        instance_port: 30061                                      
        healthy_threshold: 2                                     
@@ -64,16 +65,14 @@ Create aws service:
  
     kubectl create --cluster=aws -f kub-aws
     
-After all nodes pass healthcheck, Locust load generator UI will be usable through the new ELB's public DNS name.
-
-Look up the public DNS of your ELB on AWS console. Now you can go the http://ELB-public-DNS and run a test.
+After all pods become ready, Locust load generator UI will be usable. Now you can go the http://your_nickname.kubeme.io and run a test.
 
 ## scaling (on aws)
 Resize the number of load generator slaves while the test is running. Observe:
 
     kub scale --cluster=aws --replicas=300 rc load-generator-slave
 
-You should see numbr of slaves at http://ELB-public-DNS go up shortly
+You should see numbr of slaves at http://your_nickname.kubeme.io go up shortly
 
 Resize the number of frameworks while the test is running. Observe:
 
