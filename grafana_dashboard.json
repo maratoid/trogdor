@@ -16,7 +16,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Requests per Second per Slave",
+          "title": "Requests per Second",
           "error": false,
           "span": 12,
           "editable": true,
@@ -27,7 +27,7 @@
           "x-axis": false,
           "y-axis": true,
           "y_formats": [
-            "short",
+            "none",
             "none"
           ],
           "grid": {
@@ -41,12 +41,12 @@
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "lines": true,
-          "fill": 0,
+          "fill": 10,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": false,
+          "stack": true,
           "percentage": false,
           "legend": {
             "show": false,
@@ -69,13 +69,18 @@
               "function": "median",
               "column": "requests_per_second",
               "series": "trogdor_rps",
-              "query": "select median(requests_per_second) from \"trogdor_rps\" where $timeFilter group by time($interval) fill(0) order asc",
-              "fill": "0"
+              "query": "select request_key, median(requests_per_second) from \"trogdor_rps\" where $timeFilter group by time($interval), request_key fill(0) order asc",
+              "fill": "0",
+              "interval": "10s",
+              "groupby_field": "request_key"
             }
           ],
           "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "seriesOverrides": [
+            {}
+          ],
+          "links": [],
+          "interval": "10s"
         }
       ],
       "showTitle": true
