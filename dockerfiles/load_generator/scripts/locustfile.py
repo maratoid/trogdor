@@ -1,16 +1,18 @@
 import logging
 import gevent
 import pprint
+import os
 from gevent.queue import Queue
 from locust import HttpLocust, TaskSet, task, events
 from influxdb.influxdb08 import InfluxDBClient
 
-host = 'monitoring-influxdb'
-port = 8086
-user = 'root'
-pw = 'root'
+host = os.getenv('INFLUXDB_HOST', 'influxdb')
+port = int(os.getenv('INFLUXDB_PORT', '8086'))
+user = os.getenv('INFLUXDB_USER', 'root')
+pw = os.getenv('INFLUXDB_PASSWORD', 'root')
+name = os.getenv('INFLUXDB_NAME', 'k8s')
 
-influx_client = InfluxDBClient (host, port, user, pw, 'k8s')
+influx_client = InfluxDBClient (host, port, user, pw, name)
 influx_queue = Queue()
 
 def influx_worker():
@@ -74,4 +76,4 @@ class WebsiteUser(HttpLocust):
   task_set = JsonSerialization
 
 gevent.spawn(influx_worker)
-events.slave_report += slave_report_log 
+events.slave_report += slave_report_log
